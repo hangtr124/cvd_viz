@@ -6,8 +6,20 @@
   <!-- D3 library -->
   <script src="https://d3js.org/d3.v7.min.js"></script>
   <style>
-    body { font-family: Arial; margin: 20px; }
-    svg  { display: block; margin-bottom: 40px; }
+    body {
+      font-family: Arial;
+      margin: 20px;
+      /* center all inline‑block children (headings, svgs, images) */
+      text-align: center;
+    }
+  
+    svg,
+    img {
+      /* make them block‑level and auto‑center */
+      display: block;
+      margin: 0 auto 40px;
+    }
+  
     .tooltip {
       position: absolute;
       background: white;
@@ -20,6 +32,7 @@
       opacity: 0;
     }
   </style>
+  
 </head>
 <body>
 
