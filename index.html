@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cardio Scatter Plot</title>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; }
+    .tooltip {
+      position: absolute;
+      background: white;
+      padding: 6px;
+      border: 1px solid #999;
+      font-size: 13px;
+      pointer-events: none;
+      border-radius: 4px;
+      box-shadow: 0 0 4px rgba(0,0,0,0.2);
+      opacity: 0;
+    }
+  </style>
+</head>
+<body>
+  <h2>Scatter Plot: Age vs BP</h2>
+  <svg id="scatter" width="800" height="500"></svg>
+  <div class="tooltip"></div>
+
+  <!-- Your chart logic is in this external file -->
+  <script src="chart.js"></script>
+</body>
+</html>
