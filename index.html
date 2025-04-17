@@ -2,10 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Cardio Scatter Plot</title>
+  <title>Dual D3 Charts</title>
+  <!-- D3 library -->
   <script src="https://d3js.org/d3.v7.min.js"></script>
   <style>
-    body { font-family: Arial, sans-serif; }
+    body { font-family: Arial; margin: 20px; }
+    svg  { display: block; margin-bottom: 40px; }
     .tooltip {
       position: absolute;
       background: white;
@@ -20,11 +22,19 @@
   </style>
 </head>
 <body>
-  <h2>Scatter Plot: Age vs BP</h2>
-  <svg id="scatter" width="800" height="500"></svg>
+
+  <h2>Chart 1: Age vs BP (Color → Cardio)</h2>
+  <svg id="chart1" width="800" height="500"></svg>
+
+
+  <h2>Cholesterol by gender</h2>
+  <img src="visualization.png" alt="My diagram" width="800" style="display:block; margin-bottom:40px;">
+
+  <!-- shared tooltip -->
   <div class="tooltip"></div>
 
-  <!-- Your chart logic is in this external file -->
+  <!-- load chart1 first, then chart2 -->
+  <script src="chart1.js"></script>
   <script src="chart.js"></script>
 </body>
 </html>
