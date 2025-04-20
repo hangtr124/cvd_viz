@@ -2,52 +2,215 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Dual D3 Charts</title>
-  <!-- D3 library -->
+  <title>Cardiovascular Disease Visualization Dashboard</title>
   <script src="https://d3js.org/d3.v7.min.js"></script>
   <style>
+    /* Page background & typography */
     body {
-      font-family: Arial;
-      margin: 20px;
-      /* center all inline‑block children (headings, svgs, images) */
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right bottom, #f0f4f8, #d9e2ec);
+      color: #102a43;
       text-align: center;
     }
-  
-    svg,
-    img {
-      /* make them block‑level and auto‑center */
+    /* Hero header */
+    header {
+      background: #102a43;
+      color: #fff;
+      padding: 60px 20px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    header h1 { margin: 0; font-size: 3rem; line-height:1.2; }
+    header p  { margin-top: 10px; font-size:1.2rem; opacity:0.8; }
+    /* Main container */
+    main {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+    section {
+      background: #fff;
+      border-radius: 8px;
+      padding: 30px 20px;
+      margin-bottom: 40px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+    section h2 {
+      margin-top: 0;
+      color: #243b53;
+      font-size: 1.6rem;
+    }
+    section p {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #334e68;
+      max-width: 800px;
+      margin: 0 auto 20px;
+    }
+    /* Center media */
+    svg, img, iframe {
       display: block;
       margin: 0 auto 40px;
+      max-width: 100%;
+      border-radius: 4px;
     }
-  
+    /* Data table */
+    .table-container {
+      max-height: 400px;
+      overflow-y: auto;
+      margin: 0 auto;
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .table-container table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .table-container th, .table-container td {
+      border: 1px solid #ddd;
+      padding: 6px;
+      font-size: 0.9rem;
+    }
+    .table-container th {
+      background: #f4f4f4;
+      position: sticky;
+      top: 0;
+    }
+    /* Tooltip */
     .tooltip {
       position: absolute;
-      background: white;
-      padding: 6px;
-      border: 1px solid #999;
-      font-size: 13px;
-      pointer-events: none;
+      background: #fff;
+      padding: 8px 12px;
+      border: 1px solid #ccc;
       border-radius: 4px;
-      box-shadow: 0 0 4px rgba(0,0,0,0.2);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      font-size: 0.9rem;
+      pointer-events: none;
       opacity: 0;
     }
+    /* Footer */
+    footer {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #556270;
+      padding: 20px 0;
+      margin-top: 60px;
+    }
   </style>
-  
 </head>
 <body>
+  <header>
+    <h1>Cardiovascular Disease Visualization Dashboard</h1>
+    <p>Explore correlations, trends, embedded reports, and raw data for cardiovascular health metrics.</p>
+  </header>
 
-  <h2>Chart 1: Age vs BP (Color → Cardio)</h2>
-  <svg id="chart1" width="800" height="500"></svg>
+  <main>
+    <!-- Goals & Objectives -->
+    <section>
+      <h2>Goals and Objectives</h2>
+      <p><strong>Motivation:</strong> Cardiovascular disease is one of the world’s most significant health challenges. Understanding the key risk factors and demographic trends helps develop strategies to prevent disease. This dashboard bridges the gap in accessibility and visual analysis of cardiovascular data, providing insights for healthcare professionals, policymakers, and researchers.</p>
+    </section>
 
+      <!-- Data Preview -->
+      <section>
+        <h2>Data Preview</h2>
+        <p>A scrollable preview of the raw <code>cardio_train.csv</code> dataset.</p>
+        <div id="data-table-container" class="table-container"></div>
+      </section>
+  
+    <!-- dash board -->
+    <section>
+      <h2>Power BI Dashboard</h2>
+      <p>Explore an interactive Power BI report directly within this dashboard.</p>
+      <iframe
+        title="Cardio Power BI Report"
+        width="800" height="500"
+        src="https://app.powerbi.com/view?r=eyJrIjoiZTAxNjZlZGEtM2VhOS00MWY0LWE4ZTgtYTI5YTg3ODU4ZGNmIiwidCI6IjcwZGUxOTkyLTA3YzYtNDgwZi1hMzE4LWExYWZjYmEwMzk4MyIsImMiOjN9"
+        frameborder="0"
+        allowFullScreen="true"
+      ></iframe>
+    </section>
 
-  <h2>Cholesterol by gender</h2>
-  <img src="visualization.png" alt="My diagram" width="800" style="display:block; margin-bottom:40px;">
+  
+    <!-- Correlation Matrix -->
+    <section>
+      <h2>Correlation Matrix</h2>
+      <p>This heatmap shows pairwise Pearson correlations between all features in the dataset, ordered by their absolute correlation with the target <code>cardio</code>.</p>
+      <img src="corr.png" alt="Correlation matrix heatmap">
+    </section>
 
-  <!-- shared tooltip -->
+    <!-- Top Positive Correlations -->
+    <section>
+      <h2>Top Positive Correlations vs. Cardio</h2>
+      <p>Charts showing the two features most positively correlated with <code>cardio</code>: Age (in years) and Cholesterol levels.</p>
+      <img src="most_pos_corr.png" alt="Top positive correlations">
+    </section>
+
+    <!-- Top Negative Correlations -->
+    <section>
+      <h2>Top Negative Correlations vs. Cardio</h2>
+      <p>Charts showing the two features most negatively correlated with <code>cardio</code>: Smoke (0 = nonsmoker, 1 = smoker) and Active (0 = not active, 1 = active).</p>
+      <img src="most_neg.png" alt="Top negative correlations">
+    </section>
+
+    <!-- Interactive Chart -->
+    <section>
+      <h2>Interactive Chart: Age vs. BP by Cardio Type</h2>
+      <p>Scroll or pinch to zoom, drag to pan, and hover for details. Point size = weight, color = cardio status.</p>
+      <p>Red dots (cardio = 1) sit higher on the y‑axis than blue dots (cardio = 0), showing that patients with cardiovascular disease have consistently higher systolic blood pressure across all ages—especially between 45 and 60 years. 
+        The larger circle sizes (weight) also cluster among reds, highlighting that higher body mass often coincides with both elevated BP and disease status.</p>
+      <svg id="chart1" width="800" height="500"></svg>
+    </section>
+
+    <!-- Stacked Bar Chart -->
+    <section>
+      <h2>Cholesterol Levels by Gender &amp; Cardio Status</h2>
+      <p>Stacked bar chart of cholesterol distributions by gender and cardio diagnosis.</p>
+      <img src="visualization.png" alt="Cholesterol by gender and cardio">
+    </section>
+    <section>
+      <h2>Blood Pressure Trends by Age, Gender, and Cardio Status</h2>
+      <p>
+        This panel shows how average systolic (top row) and diastolic (bottom row) blood pressures
+        evolve with age for patients <strong>with</strong> (<span style="color:crimson">red</span>) and
+        <strong>without</strong> (<span style="color:steelblue">blue</span>) cardiovascular disease,
+        separately for females (left column) and males (right column).
+      </p>
+      <p>
+        You can see that at nearly every age, both systolic and diastolic pressures are higher in the
+        cardio‑positive group. The gap is especially pronounced in mid‑life (ages ~44–50), and shows
+        slightly different patterns for men versus women. This suggests that elevated blood pressure
+        is strongly associated with cardiovascular disease across the adult lifespan.
+      </p>
+      <img src="BP.png" alt="Faceted line charts of systolic and diastolic blood pressure by age, gender, and cardio status" />
+    </section>
+    
+  </main>
+
   <div class="tooltip"></div>
 
-  <!-- load chart1 first, then chart2 -->
+  <!-- Load charts -->
   <script src="chart1.js"></script>
-  <script src="chart.js"></script>
+  <script src="chart2.js"></script>
+
+  <!-- Data table loader -->
+  <script>
+    d3.dsv(";", "cardio_train.csv").then(data => {
+      const container = d3.select("#data-table-container");
+      const table = container.append("table");
+      const thead = table.append("thead").append("tr");
+      data.columns.forEach(col => thead.append("th").text(col));
+      const tbody = table.append("tbody");
+      data.forEach(row => {
+        const tr = tbody.append("tr");
+        data.columns.forEach(col => tr.append("td").text(row[col]));
+      });
+    }).catch(err=>console.error(err));
+  </script>
+
+  <footer>
+    &copy; 2025 Bertha and Hang | Data source: Cardiovascular Disease Dataset
+  </footer>
 </body>
 </html>
